@@ -65,16 +65,18 @@ public class GraphManager : MonoBehaviour
                 newDot.GetComponent<RectTransform>().localPosition = dotPos;
                 theGM.dotObj.Add(newDot);
             }
-            for(int i=0; i<graphXPos.Length - 1;i++){//선 그리기
-                Vector3 perDot = theGM.dotObj[i].transform.localPosition;
-                Vector3 nextDot = theGM.dotObj[i + 1].transform.localPosition;
-                var newLine = Instantiate(line, Vector3.zero, Quaternion.identity, lineGroup);
-                float lineLength = Mathf.Sqrt(Mathf.Pow((nextDot.x - perDot.x),2) + Mathf.Pow((nextDot.y - perDot.y),2));
-                float lineslope = Mathf.Atan2((nextDot.y - perDot.y),(nextDot.x - perDot.x)) * Mathf.Rad2Deg;
-                // print(perDot+" "+nextDot+" "+lineLength + " " + lineslope);
-                newLine.GetComponent<RectTransform>().sizeDelta = new Vector2(lineLength,1f);//y값이 선의 두께
-                newLine.GetComponent<RectTransform>().localRotation = Quaternion.Euler(0f,0f, lineslope);
-                newLine.GetComponent<RectTransform>().localPosition = new Vector3((nextDot.x + perDot.x)/2, (nextDot.y + perDot.y)/2,0f);
+            if(theGM.dot.Count > 1){//점이 1개 이하일경우는 그리지 않아도 된다.
+                for(int i=0; i<graphXPos.Length - 1;i++){//선 그리기
+                    Vector3 perDot = theGM.dotObj[i].transform.localPosition;
+                    Vector3 nextDot = theGM.dotObj[i + 1].transform.localPosition;
+                    var newLine = Instantiate(line, Vector3.zero, Quaternion.identity, lineGroup);
+                    float lineLength = Mathf.Sqrt(Mathf.Pow((nextDot.x - perDot.x),2) + Mathf.Pow((nextDot.y - perDot.y),2));
+                    float lineslope = Mathf.Atan2((nextDot.y - perDot.y),(nextDot.x - perDot.x)) * Mathf.Rad2Deg;
+                    // print(perDot+" "+nextDot+" "+lineLength + " " + lineslope);
+                    newLine.GetComponent<RectTransform>().sizeDelta = new Vector2(lineLength,1f);//y값이 선의 두께
+                    newLine.GetComponent<RectTransform>().localRotation = Quaternion.Euler(0f,0f, lineslope);
+                    newLine.GetComponent<RectTransform>().localPosition = new Vector3((nextDot.x + perDot.x)/2, (nextDot.y + perDot.y)/2,0f);
+                }
             }
            updateFlag = false;
         }
