@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     public List<Dot> dot = new List<Dot>();
+    public List<GameObject> dotObj = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {

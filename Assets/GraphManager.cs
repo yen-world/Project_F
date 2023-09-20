@@ -10,11 +10,13 @@ public class GraphManager : MonoBehaviour
     [SerializeField] RectTransform graphArea;
     [SerializeField] GameObject dot;
     [SerializeField] Transform dotGroup;
+    [SerializeField] GameObject line;
+    [SerializeField] Transform lineGroup;
     [SerializeField] float[] graphXPos = new float[20];
     
     int maxRate;
-    float areaMaxH,areaMinH,areaMinW,aeraStep;
-    int maxPrice, minPirce;
+    [SerializeField] float areaMaxH,areaMinH,areaMinW,aeraStep;
+    [SerializeField] int maxPrice, minPirce;
     
     public bool updateFlag = false;
 
@@ -39,9 +41,12 @@ public class GraphManager : MonoBehaviour
         if(updateFlag){
             maxPrice = theGM.MaxPrice();
             minPirce = theGM.MinPirce();
-            for(int i = 0;i < graphXPos.Length;i++){
+            print(maxPrice +" "+ minPirce);
+            for(int i = 0;i < graphXPos.Length;i++){//점 그리기
                 //위치 계산하여 저장하는 변수
-                float dotPercent = (theGM.dot[i].price - minPirce) / (maxPrice - minPirce) * 100;
+                // print(theGM.dot[i].price + " " + (theGM.dot[i].price - minPirce) + " " +(maxPrice - minPirce) +" "+((theGM.dot[i].price - minPirce) / (maxPrice - minPirce)));
+                float dotPercent = (float)(theGM.dot[i].price - minPirce)/ (maxPrice - minPirce);
+                // print(dotPercent);
                 float dotYPos;
                 if(dotPercent > 0.5){//중간보다 위
                     dotPercent = (dotPercent - 0.5f) * 2;
@@ -55,7 +60,21 @@ public class GraphManager : MonoBehaviour
                     dotYPos = areaMinH * dotPercent;
                 }
                 Vector3 dotPos = new Vector3(graphXPos[i],dotYPos,0);
-                var newDot = Instantiate(dot, dotPos, Quaternion.identity, dotGroup);
+                // Instantiate(dot,,,)
+                var newDot = Instantiate(dot, Vector3.zero, Quaternion.identity,dotGroup);
+                newDot.GetComponent<RectTransform>().localPosition = dotPos;
+                theGM.dotObj.Add(newDot);
+            }
+            for(int i=0; i<graphXPos.Length - 1;i++){//선 그리기
+                Vector3 perDot = theGM.dotObj[i].transform.localPosition;
+                Vector3 nextDot = theGM.dotObj[i + 1].transform.localPosition;
+                var newLine = Instantiate(line, Vector3.zero, Quaternion.identity, lineGroup);
+                float lineLength = Mathf.Sqrt(Mathf.Pow((nextDot.x - perDot.x),2) + Mathf.Pow((nextDot.y - perDot.y),2));
+                float lineslope = Mathf.Atan2((nextDot.y - perDot.y),(nextDot.x - perDot.x)) * Mathf.Rad2Deg;
+                // print(perDot+" "+nextDot+" "+lineLength + " " + lineslope);
+                newLine.GetComponent<RectTransform>().sizeDelta = new Vector2(lineLength,1f);//y값이 선의 두께
+                newLine.GetComponent<RectTransform>().localRotation = Quaternion.Euler(0f,0f, lineslope);
+                newLine.GetComponent<RectTransform>().localPosition = new Vector3((nextDot.x + perDot.x)/2, (nextDot.y + perDot.y)/2,0f);
             }
            updateFlag = false;
         }

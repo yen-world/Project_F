@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-[System.Serializable]
-public class Dot
-{
-    [SerializeField] public float Ypos; //xPOs는 고정
-    [SerializeField] public int price;
 
+public class DotManager : MonoBehaviour
+{
+    public Dot dot;
     // Start is called before the first frame update
     void Start()
     {
