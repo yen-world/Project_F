@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ObjectClick : MonoBehaviour
+public class ObjectClick : MonoBehaviour, IPointerClickHandler
 {
     Camera cam;
 
@@ -21,10 +22,20 @@ public class ObjectClick : MonoBehaviour
         {
             Vector2 pos = cam.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
-            if (hit)
+
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Shop Layer"))
             {
-                UIManager.instance.Show(hit);
+                UIManager.instance.OpenShop(hit);
+            }
+            else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Sales Item Layer"))
+            {
+                Debug.Log("GGG");
+                UIManager.instance.OpenItemInfo(hit);
             }
         }
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("GG");
     }
 }

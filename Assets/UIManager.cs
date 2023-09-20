@@ -30,32 +30,52 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void Show(RaycastHit2D hit)
+    public void OpenShop(RaycastHit2D hit)
     {
         if (hit.transform.CompareTag("fruits"))
         {
-            Debug.Log("과일가게");
             GameObject.Find("ShopUI").transform.Find("FruitsUI").gameObject.SetActive(true);
         }
         else if (hit.transform.CompareTag("electronics"))
         {
-            Debug.Log("전자제품가게");
             GameObject.Find("ShopUI").transform.Find("ElectronicsUI").gameObject.SetActive(true);
         }
         else if (hit.transform.CompareTag("luxury"))
         {
-            Debug.Log("명품가게");
             GameObject.Find("ShopUI").transform.Find("LuxuryUI").gameObject.SetActive(true);
         }
         else if (hit.transform.CompareTag("jewelry"))
         {
-            Debug.Log("보석가게");
             GameObject.Find("ShopUI").transform.Find("JewelryUI").gameObject.SetActive(true);
         }
         else if (hit.transform.CompareTag("cars"))
         {
-            Debug.Log("자동차가게");
             GameObject.Find("ShopUI").transform.Find("CarsUI").gameObject.SetActive(true);
+        }
+    }
+
+    public void OpenItemInfo(RaycastHit2D hit)
+    {
+        Debug.Log("G");
+        if (hit.transform.CompareTag("item1"))
+        {
+            Debug.Log("사과");
+        }
+        else if (hit.transform.CompareTag("item2"))
+        {
+            Debug.Log("배");
+        }
+        else if (hit.transform.CompareTag("item3"))
+        {
+            Debug.Log("바나나");
+        }
+        else if (hit.transform.CompareTag("item4"))
+        {
+            Debug.Log("멜론");
+        }
+        else if (hit.transform.CompareTag("item5"))
+        {
+            Debug.Log("수박");
         }
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - luxury
   - jewelry
   - cars
+  - item1
   layers:
   - Default
   - TransparentFX
@@ -16,12 +17,12 @@ TagManager:
   - 
   - Water
   - UI
-  - fruits
+  - Shop Layer
   - electronics
   - luxury
   - jewelry
   - cars
-  - 
+  - Sales Item Layer
   - 
   - 
   - 
