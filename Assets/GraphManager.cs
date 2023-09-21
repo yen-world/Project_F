@@ -37,12 +37,12 @@ public class GraphManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {//11번째 오류.. 다시 찾아볼것
+    {
         if(updateFlag){
             maxPrice = theGM.MaxPrice();
             minPirce = theGM.MinPirce();
             print(maxPrice +" "+ minPirce);
-            for(int i = 0;i < graphXPos.Length;i++){//점 그리기
+            for(int i = 0;i < theGM.dot.Count;i++){//점 그리기
                 //위치 계산하여 저장하는 변수
                 // print(theGM.dot[i].price + " " + (theGM.dot[i].price - minPirce) + " " +(maxPrice - minPirce) +" "+((theGM.dot[i].price - minPirce) / (maxPrice - minPirce)));
                 float dotPercent = (float)(theGM.dot[i].price - minPirce)/ (maxPrice - minPirce);
@@ -60,13 +60,12 @@ public class GraphManager : MonoBehaviour
                     dotYPos = areaMinH * dotPercent;
                 }
                 Vector3 dotPos = new Vector3(graphXPos[i],dotYPos,0);
-                // Instantiate(dot,,,)
                 var newDot = Instantiate(dot, Vector3.zero, Quaternion.identity,dotGroup);
                 newDot.GetComponent<RectTransform>().localPosition = dotPos;
-                theGM.dotObj.Add(newDot);
+                theGM.DotObjAddList(newDot);
             }
             if(theGM.dot.Count > 1){//점이 1개 이하일경우는 그리지 않아도 된다.
-                for(int i=0; i<graphXPos.Length - 1;i++){//선 그리기
+                for(int i=0; i< theGM.dot.Count - 1;i++){//선 그리기
                     Vector3 perDot = theGM.dotObj[i].transform.localPosition;
                     Vector3 nextDot = theGM.dotObj[i + 1].transform.localPosition;
                     var newLine = Instantiate(line, Vector3.zero, Quaternion.identity, lineGroup);

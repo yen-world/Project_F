@@ -8,6 +8,11 @@ public class Dot
     [SerializeField] public float Ypos; //xPOs는 고정
     [SerializeField] public int price;
 
+    public Dot(float _y, int _price){
+        Ypos = _y;
+        price = _price;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
