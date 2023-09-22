@@ -21,7 +21,10 @@ public class TestGenerating : MonoBehaviour
     private void Update() {
         time += Time.deltaTime;
         if(time > spawnTime){//시간마다 dot을 gamemanager의 dot리스트에 추가한다.
-            theGM.DotAddList(new Dot(0,Random.Range(0,10000)));
+            // theGM.DotAddList(new Dot(theGraph.graphXPos[0],0,Random.Range(0,10000)));
+            Dot newDot = new Dot(Random.Range(1000,10000));
+            theGM.dot.Add(newDot);
+            theGraph.dotSpawnFlag = true;
             time = 0f;
         }
     }

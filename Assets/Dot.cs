@@ -1,27 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 [System.Serializable]
 public class Dot
 {
-    [SerializeField] public float Ypos; //xPOs는 고정
+    [SerializeField] public float Ypos;
+    [SerializeField] public float Xpos; 
     [SerializeField] public int price;
 
-    public Dot(float _y, int _price){
+    public Dot(int _price, float _x = 0f, float _y = 0f){
+        Xpos = _x;
         Ypos = _y;
         price = _price;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
