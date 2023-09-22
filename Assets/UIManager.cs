@@ -54,28 +54,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void OpenItemInfo(RaycastHit2D hit)
+    public void CloseUI()
     {
-        Debug.Log("G");
-        if (hit.transform.CompareTag("item1"))
-        {
-            Debug.Log("사과");
-        }
-        else if (hit.transform.CompareTag("item2"))
-        {
-            Debug.Log("배");
-        }
-        else if (hit.transform.CompareTag("item3"))
-        {
-            Debug.Log("바나나");
-        }
-        else if (hit.transform.CompareTag("item4"))
-        {
-            Debug.Log("멜론");
-        }
-        else if (hit.transform.CompareTag("item5"))
-        {
-            Debug.Log("수박");
-        }
+        GameObject.Find("Main Camera").GetComponent<ObjectClick>().IsOpenUI = false;
+    }
+
+    public void CheckingObject()
+    {
+        Debug.Log("object");
     }
 }

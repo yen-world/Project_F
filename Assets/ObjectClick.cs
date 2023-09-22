@@ -4,9 +4,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ObjectClick : MonoBehaviour, IPointerClickHandler
+public class ObjectClick : MonoBehaviour
 {
     Camera cam;
+    public bool IsOpenUI = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class ObjectClick : MonoBehaviour, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !IsOpenUI)
         {
             Vector2 pos = cam.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
@@ -26,16 +27,8 @@ public class ObjectClick : MonoBehaviour, IPointerClickHandler
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Shop Layer"))
             {
                 UIManager.instance.OpenShop(hit);
-            }
-            else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Sales Item Layer"))
-            {
-                Debug.Log("GGG");
-                UIManager.instance.OpenItemInfo(hit);
+                IsOpenUI = true;
             }
         }
-    }
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("GG");
     }
 }
