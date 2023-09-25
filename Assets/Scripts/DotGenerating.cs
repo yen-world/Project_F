@@ -19,8 +19,12 @@ public class DotGenerating : MonoBehaviour
     {
         time += Time.deltaTime;
         if(time > maxtime){
-
             var newDot = Instantiate(theGP.dot, theGP.dotGroup);
+
+
+            //값에 대한 생성은 여기서 일단 임시로 하는중. 나중에 수정 필요
+            newDot.GetComponent<DotManager>().dot.price = Random.Range(0,10000);
+
             newDot.SetActive(false);
             if(theGP.dotList.Count != 20){
                 theGP.dotList.Add(newDot.GetComponent<DotManager>().dot);

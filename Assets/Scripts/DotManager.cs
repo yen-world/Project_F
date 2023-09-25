@@ -18,10 +18,24 @@ public class DotManager : MonoBehaviour
     void Update()
     {
         try{
+            //xPos 작업...            
             dot.xPos = theGP.dotXPos[theGP.dotList.FindIndex(x => x == dot)];
+            
+            //yPos 작업...
+            dot.yPos = dot.price / theGP.areaRange;
+            if(dot.yPos > 0.5f){
+                dot.yPos = (dot.yPos - 0.5f) * theGP.areaHalfH;
+            }else if(dot.yPos == 0.5f){
+                dot.yPos = 0f;
+            }else{
+                dot.yPos = (0.5f - dot.yPos) * theGP.areaHalfH;
+            }
+            
             this.transform.localPosition = new Vector3(dot.xPos, dot.yPos,this.transform.position.z);
         } catch(IndexOutOfRangeException){
             Destroy(this.gameObject);
+        } catch(DivideByZeroException){
+            
         }
     }
 }
