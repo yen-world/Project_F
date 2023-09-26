@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DotGenerating : MonoBehaviour
 {
-    [SerializeField] float maxtime = 1f, time = 0f;
+    [SerializeField] float maxtime = 0.5f, time = 0f;
     GameManager theGM;
     GraphManager theGP;
     LineManager newline = new LineManager();
