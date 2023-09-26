@@ -14,15 +14,26 @@ public class LineManager : MonoBehaviour
         //일단 점을 배정해야 함. pre, next 모두
         //생성된 line의 index를 먼저 구해서 라인에 해당하는 index의 점이 pre, 그다음이 next
         int lineIdx = theGP.lineList.IndexOf(line);
-        print(lineIdx);
-        line.preDot = theGP.dotList[lineIdx - 1];
-        line.nextDot = theGP.dotList[lineIdx];
+        print(this.gameObject.transform.GetSiblingIndex());
+        try{
+            line.preDot = theGP.dotList[lineIdx-1];
+            line.nextDot = theGP.dotList[lineIdx];
+        }catch(ArgumentOutOfRangeException){
+
+        }
+        
     }
 
     private void Update() {
         try{
-            if(line.preDot.xPos == line.nextDot.xPos){
-                Destroy(this.gameObject);
+            if(this.gameObject.transform.GetSiblingIndex() - 20 > 0){
+                    Destroy(theGP.lineGroup.GetChild(gameObject.transform.GetSiblingIndex() - 20).gameObject);
+                    if(line.preDot.xPos == line.preDot.yPos){
+                        Destroy(this.gameObject);
+                    }
+            }
+            if(line.preDot.xPos == line.preDot.yPos){
+                        Destroy(this.gameObject);
             }
             this.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(
                 (line.preDot.xPos + line.nextDot.xPos) / 2,
