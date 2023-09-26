@@ -20,7 +20,12 @@ public class DotGenerating : MonoBehaviour
         time += Time.deltaTime;
         if(time > maxtime){
             var newDot = Instantiate(theGP.dot, theGP.dotGroup);
+            LineManager newline = new LineManager();
 
+            if(theGP.dotList.Count > 0){
+                newline = Instantiate(theGP.line,theGP.lineGroup).GetComponent<LineManager>();
+            }
+            
 
             //값에 대한 생성은 여기서 일단 임시로 하는중. 나중에 수정 필요
             newDot.GetComponent<DotManager>().dot.price = Random.Range(0,10000);
@@ -32,7 +37,15 @@ public class DotGenerating : MonoBehaviour
                 theGP.dotList.RemoveAt(0);
                 theGP.dotList.Add(newDot.GetComponent<DotManager>().dot);
             }
+
+            if(theGP.lineList.Count != 19){
+                theGP.lineList.Add(newline.line);
+            }else{
+                theGP.lineList.RemoveAt(0);
+                theGP.lineList.Add(newline.line);
+            }
             newDot.SetActive(true);
+
             time = 0f;
         }
     }

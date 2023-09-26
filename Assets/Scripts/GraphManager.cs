@@ -14,7 +14,6 @@ public class GraphManager : MonoBehaviour
     //dot
     [SerializeField] public GameObject dot;
     [SerializeField] public Transform dotGroup;
-    [SerializeField] public bool dotSpawn;
 
     [SerializeField] public float []dotXPos = new float[20];
     [SerializeField] public List<Dot> dotList = new List<Dot>();
@@ -27,6 +26,10 @@ public class GraphManager : MonoBehaviour
     //text
     [SerializeField] Text HighPriceText, avgPriceText, lowPriceText;
 
+    //Line
+    [SerializeField] public GameObject line;
+    [SerializeField] public Transform lineGroup;
+    [SerializeField] public List<Line> lineList = new List<Line>();
 
     //etc
     [SerializeField] public int highPrice, lowprice, avgprice, areaRange;
@@ -36,7 +39,7 @@ public class GraphManager : MonoBehaviour
     void Start()
     {
         theGM = FindObjectOfType<GameManager>();
-        areaHalfH = (graphArea.rect.height / 2) - 20;
+        areaHalfH = (graphArea.rect.height / 2) - 20; //-를 붙이면 최소값이 됨.
         dotStep = graphArea.rect.width / dotXPos.Length;
         for(int i = 0;i<dotXPos.Length;i++){
             dotXPos[i] = ((graphArea.rect.width / -2) + (dotStep / 2)) + (dotStep * i);

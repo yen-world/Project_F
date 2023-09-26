@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class DotManager : MonoBehaviour
@@ -22,13 +23,15 @@ public class DotManager : MonoBehaviour
             dot.xPos = theGP.dotXPos[theGP.dotList.FindIndex(x => x == dot)];
             
             //yPos 작업...
-            dot.yPos = dot.price / theGP.areaRange;
+            dot.yPos = (float)(dot.price - theGP.lowprice) / (theGP.areaRange);
             if(dot.yPos > 0.5f){
-                dot.yPos = (dot.yPos - 0.5f) * theGP.areaHalfH;
+                dot.yPos = (dot.yPos - 0.5f) * 2;
+                dot.yPos *= theGP.areaHalfH;
             }else if(dot.yPos == 0.5f){
                 dot.yPos = 0f;
             }else{
-                dot.yPos = (0.5f - dot.yPos) * theGP.areaHalfH;
+                dot.yPos = (0.5f - dot.yPos) * 2;
+                dot.yPos *= -theGP.areaHalfH;
             }
             
             this.transform.localPosition = new Vector3(dot.xPos, dot.yPos,this.transform.position.z);
@@ -36,6 +39,6 @@ public class DotManager : MonoBehaviour
             Destroy(this.gameObject);
         } catch(DivideByZeroException){
             
-        }
+        } 
     }
 }
