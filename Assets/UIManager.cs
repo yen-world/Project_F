@@ -48,8 +48,9 @@ public class UIManager : MonoBehaviour
         {
             GameObject.Find("ShopUI").transform.Find("JewelryUI").gameObject.SetActive(true);
         }
-        else if (hit.transform.CompareTag("cars"))
+        else if (hit.transform.gameObject.CompareTag("cars"))
         {
+
             GameObject.Find("ShopUI").transform.Find("CarsUI").gameObject.SetActive(true);
         }
     }

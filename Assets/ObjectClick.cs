@@ -7,13 +7,12 @@ using UnityEngine.EventSystems;
 public class ObjectClick : MonoBehaviour
 {
     Camera cam;
-    public bool IsOpenUI = false;
+    public bool IsOpenUI;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         cam = GetComponent<Camera>();
-
+        IsOpenUI = false;
     }
 
     // Update is called once per frame
@@ -24,11 +23,13 @@ public class ObjectClick : MonoBehaviour
             Vector2 pos = cam.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
 
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Shop Layer"))
+            if (hit.collider != null && hit.transform.gameObject.layer == LayerMask.NameToLayer("Shop Layer"))
             {
                 UIManager.instance.OpenShop(hit);
                 IsOpenUI = true;
             }
         }
     }
+
+
 }
